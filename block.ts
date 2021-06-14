@@ -56,3 +56,32 @@ const generateNextBlock = (blockData: string) => {
 };
 
 const blockchain: Block[] = [genesisBlock];
+
+const isValidNewBlock = (newBlock: Block, previousBlock: Block) => {
+  if (previousBlock.index + 1 !== newBlock.index) {
+    console.log("invalid index");
+    return false;
+  } else if (previousBlock.hash !== newBlock.previousHash) {
+    console.log("invalid previoushash");
+    return false;
+  } else if (calculateHashForBlock(newBlock) !== newBlock.hash) {
+    console.log(
+      typeof newBlock.hash + " " + typeof calculateHashForBlock(newBlock)
+    );
+    console.log(
+      "invalid hash: " + calculateHashForBlock(newBlock) + " " + newBlock.hash
+    );
+    return false;
+  }
+  return true;
+};
+
+const isValidBlockStructure = (block: Block): boolean => {
+  return (
+    typeof block.index === "number" &&
+    typeof block.hash === "string" &&
+    typeof block.previousHash === "string" &&
+    typeof block.timestamp === "number" &&
+    typeof block.data === "string"
+  );
+};
