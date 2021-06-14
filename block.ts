@@ -54,3 +54,5 @@ const generateNextBlock = (blockData: string) => {
   );
   return newBlock;
 };
+
+const blockchain: Block[] = [genesisBlock];
