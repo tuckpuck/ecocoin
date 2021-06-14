@@ -34,3 +34,23 @@ const genesisBlock: Block = new Block(
   1465154705,
   "my genesis block!!"
 );
+
+const generateNextBlock = (blockData: string) => {
+  const previousBlock: Block = getLatestBlock();
+  const nextIndex: number = previousBlock.index + 1;
+  const nextTimestamp: number = new Date().getTime() / 1000;
+  const nextHash: string = calculateHash(
+    nextIndex,
+    previousBlock.hash,
+    nextTimestamp,
+    blockData
+  );
+  const newBlock: Block = new Block(
+    nextIndex,
+    nextHash,
+    previousBlock.hash,
+    nextTimestamp,
+    blockData
+  );
+  return newBlock;
+};
